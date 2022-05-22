@@ -1,9 +1,10 @@
 
+DROP DATABASE `taxi`;
 -- Criar esquema taxi
-CREATE SCHEMA `taxi`; 
+CREATE SCHEMA IF NOT EXISTS `taxi`; 
 
 -- Criar tabela taxi
-CREATE TABLE `taxi`.`taxi` (
+CREATE TABLE IF NOT EXISTS `taxi`.`taxi` (
   `placa` VARCHAR(7) NOT NULL,
   `marca` VARCHAR(30) NOT NULL,
   `modelo` VARCHAR(30) NOT NULL,
@@ -12,14 +13,14 @@ CREATE TABLE `taxi`.`taxi` (
   PRIMARY KEY (`placa`));
 
 -- Criar tabela cliente
-CREATE TABLE `taxi`.`cliente` (
+CREATE TABLE IF NOT EXISTS `taxi`.`cliente` (
   `cliid` VARCHAR(4) NOT NULL,
   `nome` VARCHAR(80) NOT NULL,
   `cpf` VARCHAR(14) NOT NULL,
   PRIMARY KEY (`cliid`));
 
 -- Criar tabela corrida
-CREATE TABLE `taxi`.`corrida` (
+CREATE TABLE IF NOT EXISTS `taxi`.`corrida` (
   `cliid` VARCHAR(4) NOT NULL,
   `placa` VARCHAR(7) NOT NULL,
   `datapedido` DATE NOT NULL,
@@ -35,13 +36,13 @@ CREATE TABLE `taxi`.`corrida` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE TABLE `taxi`.`motorista` (
+CREATE TABLE IF NOT EXISTS `taxi`.`motorista` (
   `cnh` VARCHAR(11) NOT NULL,
   `placa` VARCHAR(7) NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `cnhvalid` BIT NOT NULL,
    PRIMARY KEY (`cnh`),
-    CONSTRAINT `placa_taxi`
+    CONSTRAINT `motorista_placa_taxi`
     FOREIGN KEY (`placa`)
     REFERENCES `taxi`.`taxi` (`placa`)
     ON DELETE NO ACTION
@@ -49,12 +50,12 @@ CREATE TABLE `taxi`.`motorista` (
 );
 
 
-CREATE TABLE `taxi`.`zona` (
+CREATE TABLE IF NOT EXISTS `taxi`.`zona` (
   `zona` VARCHAR(100) NOT NULL,
    PRIMARY KEY (`zona`)
 );
 
-CREATE TABLE `taxi`.`fila` (
+CREATE TABLE IF NOT EXISTS `taxi`.`fila` (
   `zona` VARCHAR(100) NOT NULL,
   `cnh` VARCHAR(11) NOT NULL,
   `datahorain` DATETIME NOT NULL,
@@ -66,16 +67,16 @@ CREATE TABLE `taxi`.`fila` (
     REFERENCES `taxi`.`motorista` (`cnh`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `zona_zona`
+    CONSTRAINT `zona_fk`
     FOREIGN KEY (`zona`)
     REFERENCES `taxi`.`zona` (`zona`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE NO ACTION
 );
 
 -- Exemplo de drop e adicionar foreign a uma tabela existente
-ALTER TABLE `taxi`.`fila` DROP FOREIGN KEY `zona_zona`;
-ALTER TABLE `taxi`.`fila` ADD FOREIGN KEY (`zona_zona`) REFERENCES '`taxi`.`zona` (`zona`)' ON UPDATE CASCADE;
+ALTER TABLE `taxi`.`fila` DROP FOREIGN KEY `zona_fk`;
+ALTER TABLE `taxi`.`fila` ADD FOREIGN KEY (`zona`) REFERENCES `taxi`.`zona` (`zona`) ON UPDATE CASCADE;
 
 -- Populando as tabelas com alguns dados
 INSERT INTO taxi.cliente VALUES ('1532', 'Asdrúbal', '448.754.253.65');
