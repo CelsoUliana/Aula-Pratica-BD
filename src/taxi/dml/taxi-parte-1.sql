@@ -25,25 +25,22 @@ WHERE marca like '_olks%';
 SELECT
     placa as placa_renomeada, placa
 FROM
-    taxi;
+    taxi.taxi;
 
 -- Selecionando tabela com nome personalizado (AS)
 SELECT 
     placa, modelo
 FROM
-    taxi AS tx;
+    taxi.taxi AS tx;
 
 -- Seelcionando todas marcas e modelos (incluem duplicados)
 SELECT
     marca, modelo
 FROM
-    taxi;
+    taxi.taxi;
 
 -- Selecionando marcas e modelos sem duplicados
 SELECT DISTINCT
     marca, modelo
 FROM
-    taxi;
-
-
-
+    taxi.taxi;
