@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `vinicola`.`vinho` (
   `tipo_vinho` VARCHAR(100) NOT NULL,
   `ano_vinho` INT NOT NULL,
   `descricao_vinho` VARCHAR(200) NOT NULL,
-  `preço` DECIMAL NOT NULL,
+  `preço` DECIMAL(10,2) NOT NULL,
   `vinicola_id` INT NOT NULL,
   PRIMARY KEY (`vinho_id`),
   CONSTRAINT `vinicola_vinicola_id`
