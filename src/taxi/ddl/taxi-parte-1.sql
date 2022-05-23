@@ -1,5 +1,5 @@
 
-DROP DATABASE `taxi`;
+DROP DATABASE IF EXISTS `taxi`;
 -- Criar esquema taxi
 CREATE SCHEMA IF NOT EXISTS `taxi`; 
 
@@ -73,7 +73,3 @@ CREATE TABLE IF NOT EXISTS `taxi`.`fila` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
-
--- Exemplo de drop e adicionar foreign a uma tabela existente
-ALTER TABLE `taxi`.`fila` DROP FOREIGN KEY `zona_fk`;
-ALTER TABLE `taxi`.`fila` ADD FOREIGN KEY (`zona`) REFERENCES `taxi`.`zona` (`zona`) ON UPDATE CASCADE;
