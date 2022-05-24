@@ -1,10 +1,18 @@
--- chn e nome dos motoristas que já tiveram e estao na fila
-SELECT DISTINCT 
+-- cnh e nome dos motoristas que já tiveram e estao na fila - Junção
+SELECT 
     m.cnh, m.nome
 FROM 
     taxi.motorista m
 INNER JOIN 
     taxi.fila f ON m.cnh = f.cnh;
+
+-- cnh e nome dos motoristas que já tiveram e estao na fila - Produto cartesiano
+SELECT DISTINCT
+    m.cnh, m.nome
+FROM
+    taxi.fila f, taxi.motorista m
+WHERE 
+    f.cnh = m.cnh;
 
 -- Select com atributos ambiguos
 SELECT 
@@ -51,7 +59,7 @@ FROM
 WHERE 
     z.zona IN (SELECT DISTINCT f.zona FROM taxi.fila f);
 
--- Zonas que não receberam algum taxi na fila (com aninhamento / IN)
+-- Zonas que não receberam algum taxi na fila (com aninhamento / NOT IN)
 SELECT 
     z.zona
 FROM 

@@ -20,4 +20,3 @@ FROM
     filme.filme
 WHERE
     idt_filme NOT IN (SELECT idt_filme FROM filme.classificacao);
-
