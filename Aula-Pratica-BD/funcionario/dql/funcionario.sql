@@ -67,6 +67,8 @@ LEFT OUTER JOIN FUNCIONARIO AS S
 ON (F.Cpf_supervisor =S.Cpf);
 
 -- Trigger exemplo.
+-- Delimiter muda o delimitador (geralmente ';') para permitir a execução como um bloco.
+-- Delimiter no final muda novamente para ';'
 delimiter //
 CREATE TRIGGER VIOLACAO_SALARIAL BEFORE INSERT
 ON FUNCIONARIO
@@ -80,3 +82,55 @@ delimiter ;
 
 -- Insert exemplo que viola o trigger
 INSERT INTO funcionario.funcionario VALUES ('Mayara', 'Souza', '171.771.711-11', '1982-02-15', 'Zahran', 'Masculino', 10000, '333.333.333-33', 1);
+
+
+-- Exemplo de stored procedures
+-- Selecionar x (quantidade) de funcionarios
+DELIMITER $$
+CREATE PROCEDURE Selecionar_Funcionarios(IN quantidade INT)
+BEGIN
+SELECT * FROM funcionario
+LIMIT quantidade;
+END $$
+DELIMITER ;
+
+CALL Selecionar_funcionarios(2);
+
+-- Stored Procedure de atualizar
+DELIMITER $$
+CREATE PROCEDURE Atualizar_Salarios(IN quantidade INT)
+BEGIN
+UPDATE funcionario SET salario = salario + quantidade;
+END $$
+DELIMITER ;
+
+-- Desligar o modo safe update, e chamar a função.
+SET SQL_SAFE_UPDATES = 0;
+CALL Atualizar_Salarios(200);
+
+-- View
+CREATE VIEW TRABALHA_EM1
+AS SELECT Pnome, Unome, Projnome
+FROM FUNCIONARIO, PROJETO, TRABALHA_EM
+WHERE cpf=fcpf AND Pnr=Projnumero;
+
+-- Consulta na View
+SELECT * FROM funcionario.trabalha_em1
+
+-- View 
+CREATE VIEW DEP_INF(Dep_nome, Qtd_func, Total_sal)
+AS SELECT Dnome, COUNT(*), SUM(salario)
+FROM DEPARTAMENTO, FUNCIONARIO
+WHERE Dnumero=Dnr
+GROUP BY Dnome;
+
+-- Consulta na View
+Select * from funcionario.DEP_INF
+
+-- Consulta na view com where
+SELECT Pnome, Unome
+FROM TRABALHA_EM1
+WHERE Projnome='Recrutamento';
+
+-- Drop View
+DROP VIEW TRABALHA_EM1;
