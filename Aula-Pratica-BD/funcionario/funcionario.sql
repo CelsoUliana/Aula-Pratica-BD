@@ -83,7 +83,6 @@ delimiter ;
 -- Insert exemplo que viola o trigger
 INSERT INTO funcionario.funcionario VALUES ('Mayara', 'Souza', '171.771.711-11', '1982-02-15', 'Zahran', 'Masculino', 10000, '333.333.333-33', 1);
 
-
 -- Exemplo de stored procedures
 -- Selecionar x (quantidade) de funcionarios
 DELIMITER $$
@@ -104,6 +103,23 @@ UPDATE funcionario SET salario = salario + quantidade;
 END $$
 DELIMITER ;
 
+-- Stored Procedure que atualiza o salário do funcionario com o maior salário do departamento que ele trabalha
+DELIMITER $$
+CREATE PROCEDURE Atualizar_salario_funcionario(IN cpf_entrada VARCHAR(15), IN Dnr_entrada INT)
+BEGIN
+DECLARE maior_salario Decimal(10,2);
+SET maior_salario = (
+	SELECT MAX(salario) 
+	from funcionario f 
+    where f.Dnr = Dnr_entrada);
+UPDATE funcionario SET salario = maior_salario where Cpf = cpf_entrada;
+END $$
+DELIMITER ;
+
+-- Chama a procedure -- Departamento 5
+CALL Atualizar_salario_funcionario('123.456.789-66', 5);
+
+
 -- Desligar o modo safe update, e chamar a função.
 SET SQL_SAFE_UPDATES = 0;
 CALL Atualizar_Salarios(200);
@@ -115,7 +131,7 @@ FROM FUNCIONARIO, PROJETO, TRABALHA_EM
 WHERE cpf=fcpf AND Pnr=Projnumero;
 
 -- Consulta na View
-SELECT * FROM funcionario.trabalha_em1
+SELECT * FROM funcionario.trabalha_em1;
 
 -- View 
 CREATE VIEW DEP_INF(Dep_nome, Qtd_func, Total_sal)
@@ -125,7 +141,7 @@ WHERE Dnumero=Dnr
 GROUP BY Dnome;
 
 -- Consulta na View
-Select * from funcionario.DEP_INF
+Select * from funcionario.DEP_INF;
 
 -- Consulta na view com where
 SELECT Pnome, Unome

@@ -9,6 +9,7 @@ INSERT INTO funcionario.funcionario VALUES ('Agatha', 'Ramos', '222.222.222-22',
 INSERT INTO funcionario.funcionario VALUES ('Maia', 'Ferreira', '333.333.333-33', '1999-10-21', 'João Domingos', 'Feminino', 6000, NULL, 3);
 INSERT INTO funcionario.funcionario VALUES ('Daniil', 'Mata', '444.333.333-33', '1991-11-21', 'Paulo Tognini', 'Masculino', 5000, NULL, 4);
 INSERT INTO funcionario.funcionario VALUES ('João', 'Silva', '123.456.789-66', '1982-10-01', 'João Domingos', 'Masculino', 5500, NULL, 5);
+INSERT INTO funcionario.funcionario VALUES ('João', 'Silva2', '123.456.889-66', '1982-10-01', 'João Domingos', 'Masculino', 7000, NULL, 5);
 
 INSERT INTO funcionario.localizacoes_dep VALUES (1, 'Estoque - Rua brilhante');
 INSERT INTO funcionario.localizacoes_dep VALUES (4, 'RH - Afonso Pena');
@@ -23,8 +24,6 @@ INSERT INTO funcionario.trabalha_em VALUES ('333.333.333-33', 2, 200);
 INSERT INTO funcionario.trabalha_em VALUES ('444.333.333-33', 2, 30);
 INSERT INTO funcionario.trabalha_em VALUES ('123.456.789-66', 2, 500);
 INSERT INTO funcionario.trabalha_em VALUES ('222.222.222-22', 2, 500);
-
-INSERT INTO funcionario.dependente VALUES ('111.111.111-11', 'Marcel Canedo Abelho', 'Masculino', '2015-12-15', 'Filho');
 
 INSERT INTO funcionario.dependente VALUES ('111.111.111-11', 'Marcel Canedo Abelho', 'Masculino', '2015-12-15', 'Filho');
 INSERT INTO funcionario.dependente VALUES ('111.111.111-11', 'Jorge', 'Masculino', '2015-12-15', 'Filho');
